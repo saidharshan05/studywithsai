@@ -12,9 +12,20 @@
 -e file:.
 asgiref==3.10.0
     # via django
-django==5.2.7
+dj-database-url==3.0.1
     # via studywithsai
+django==5.2.7
+    # via dj-database-url
+    # via studywithsai
+gunicorn==23.0.0
+    # via studywithsai
+packaging==25.0
+    # via gunicorn
 pillow==12.0.0
+    # via studywithsai
+psycopg2-binary==2.9.11
     # via studywithsai
 sqlparse==0.5.3
     # via django
+whitenoise==6.11.0
+    # via studywithsai
