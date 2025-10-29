@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="my-4">Welcome to Your Account, {{ user.first_name|default:user.username }}!</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm h-100 border-primary">
+            <div class="card-body">
+                <h5 class="card-title">Order History</h5>
+                <p class="card-text">View details of your past purchases.</p>
+                <a href="{% url 'my_orders' %}" class="btn btn-primary">View Orders</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm h-100 border-info">
+            <div class="card-body">
+                <h5 class="card-title">Profile Settings</h5>
+                <p class="card-text">Update your name, email, and password.</p>
+                <a href="{% url 'edit_profile' %}" class="btn btn-info text-white">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

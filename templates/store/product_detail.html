@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-5">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+        {% else %}
+            <img src="{% static 'img/placeholder.png' %}" class="img-fluid rounded border" alt="No image available">
+        {% endif %}
+    </div>
+
+    <div class="col-md-7">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+            </ol>
+        </nav>
+        
+        <h1 class="display-4">{{ product.name }}</h1>
+        <p class="lead text-success fw-bold">${{ product.price }}</p>
+
+        <hr>
+
+        <h2>Description</h2>
+        <p>{{ product.description|linebreaksbr }}</p>
+
+        <div class="d-grid gap-2 mt-4">
+            {% if product.stock > 0 %}
+            <a href="{% url 'add_cart' product_slug=product.slug %}" class="btn btn-lg" style="background-color: #59b280;" type="button">
+                Add to Cart
+            </a>
+                <p class="text-success mt-2">In Stock: {{ product.stock }} items</p>
+            {% else %}
+                <button class="btn btn-lg btn-secondary" type="button" disabled>Out of Stock</button>
+            {% endif %}
+        </div>
+        
+    </div>
+</div>
+{% endblock content %}

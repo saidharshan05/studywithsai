@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="my-4">Edit Profile Information</h1>
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-info text-white">
+                Update Details
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger small">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    
+                    <button type="submit" class="btn btn-success mt-3">Save Changes</button>
+                    <a href="{% url 'my_account' %}" class="btn btn-outline-secondary mt-3 ms-2">Cancel</a>
+                    <a href="{% url 'password_change' %}" class="btn btn-link mt-3 float-end">Change Password</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

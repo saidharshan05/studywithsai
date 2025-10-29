@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="my-4">Order Details: {{ order.order_number }}</h1>
+            <a href="{% url 'my_orders' %}" class="btn btn-sm btn-outline-secondary mb-3">&larr; Back to My Orders</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-dark text-white">Shipping Information</div>
+                <div class="card-body">
+                    <p><strong>Name:</strong> {{ order.first_name }} {{ order.last_name }}</p>
+                    <p><strong>Email:</strong> {{ order.email }}</p>
+                    <p><strong>Phone:</strong> {{ order.phone }}</p>
+                    <p><strong>Address:</strong> {{ order.address_line_1 }}, {{ order.city }}, {{ order.country }}</p>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">Financial Summary</div>
+                <div class="card-body">
+                    <p><strong>Order Date:</strong> {{ order.created_at|date:"M d, Y" }}</p>
+                    <p><strong>Order Status:</strong> <span class="badge bg-primary">{{ order.status }}</span></p>
+                    <h4 class="mt-4">Order Total: <span class="text-success">${{ order.order_total|floatformat:2 }}</span></h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">Items Purchased ({{ order_items.count }} total)</div>
+                <ul class="list-group list-group-flush">
+                    {% for item in order_items %}
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            <span>{{ item.product.name }} (x{{ item.quantity }})</span>
+                            <span class="fw-bold">${{ item.sub_total|floatformat:2 }}</span>
+                        </div>
+                        <small class="text-muted">Unit Price: ${{ item.product_price }}</small>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

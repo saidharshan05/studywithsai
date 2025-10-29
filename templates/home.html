@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if keyword %}
+<div class="p-4 mb-4 rounded-3" style="background-color: #f8a62b;">
+    <h1 class="display-6">Search Results for: "{{ keyword }}"</h1>
+    <p class="lead">Found {{ products|length }} item(s).</p>
+</div>
+{% elif current_category %}
+<div class="p-4 mb-4 rounded-3" style="background-color: #1e5175;">
+    <h1 class="display-5 fw-bold" style="color: #b9e2d0;">Products in {{ current_category.name }}</h1>
+    <a class="btn btn-lg" style="background-color: #f8a62b;" href="{% url 'home' %}" role="button">View All Products</a>
+</div>
+{% else %}
+<div class="p-5 mb-4 rounded-3" style="background-color: #59b280;">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Welcome to the 
+            <span style="background-color:#1e5175">
+            <span style="color: #fe95f6;"> Study</span>
+            <span style="color: #50ade4;">With</span>
+            <span style="color: #b9e2d0;">Sai</span>
+            </span>
+             Store!</h1>
+        <p class="col-md-8 fs-4">Your one-stop shop for books, fridge magnets, badges, and more. Start exploring our collections below.</p>
+        <a class="btn btn-lg" style="background-color: #f8a62b;" href="{% url 'home' %}" role="button">Shop All Products &raquo;</a>
+    </div>
+</div>
+{% endif %}
+<h2 class="mb-4">
+    {% if current_category %}
+        {{ current_category.name }} Products
+    {% else %}
+        All Products
+    {% endif %}
+</h2>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+{% for product in products %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+                <img src="{% static 'img/placeholder.png' %}" class="card-img-top" alt="No image available" style="height: 200px; object-fit: cover;">
+            {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text text-success fw-bold">${{ product.price }}</p>
+                <p class="card-text text-muted small">{{ product.description|truncatewords:10 }}</p>
+                
+                <a href="{% url 'product_detail' product_slug=product.slug %}" class="btn btn-sm btn-outline-dark">View Details</a>
+                <a href="{% url 'add_cart' product_slug=product.slug %}" class="btn btn-sm btn-primary">Add to Cart</a> 
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p class="alert alert-warning">No products are currently available in the store.</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
