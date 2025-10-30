@@ -15,7 +15,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     
     # Visuals (Requires Pillow package for image handling)
-    image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True, null=True)
+    image = models.ImageField(upload_to='product_images', blank=True, null=True)
     
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
@@ -94,6 +94,17 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    # store/models.py (Inside class Order(models.Model):)
+
+    STATUS = (
+        ('New', 'New'),
+        ('Accepted', 'Accepted'),
+        ('Completed', 'Completed'),
+        ('Cancelled', 'Cancelled'), 
+        ('Refunded', 'Refunded'),   
+    )
+    # ...
+
     class Meta:
         ordering = ['-created_at']
 
@@ -110,9 +121,13 @@ class OrderItem(models.Model):
     
     is_ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    
 
     def sub_total(self):
-        return self.product_price * self.quantity
+        price = self.product_price if self.product_price is not None else 0
+        qty = self.quantity if self.quantity is not None else 0
+        
+        return price * qty
 
     def __str__(self):
         return self.product.name
@@ -138,3 +153,4 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    

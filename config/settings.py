@@ -130,5 +130,8 @@ LOGOUT_REDIRECT_URL = '/'
 # --- Email Configuration for Development ---
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Set the domain used in the reset link (required for Django to generate the correct URL)
 SITE_ID = 1

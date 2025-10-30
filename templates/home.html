@@ -41,9 +41,15 @@
         <div class="card h-100 shadow-sm">
             
             {% if product.image %}
-                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                <img src="{{ product.image.url }}" 
+                     class="card-img-top" 
+                     alt="{{ product.name }}" 
+                     style="height: 200px; object-fit: cover;">
             {% else %}
-                <img src="{% static 'img/placeholder.png' %}" class="card-img-top" alt="No image available" style="height: 200px; object-fit: cover;">
+                <img src="{% static 'img/placeholder.png' %}" 
+                     class="card-img-top" 
+                     alt="No image available" 
+                     style="height: 200px; object-fit: cover;">
             {% endif %}
 
             <div class="card-body">
