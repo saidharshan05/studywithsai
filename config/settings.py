@@ -15,6 +15,8 @@ SECRET_KEY = "django-insecure-v3zx!$1zf+n$3bw#m%nq#l&a=-k3&tryn!9+6z$^llra@tnow^
 DEBUG = True
 
 ALLOWED_HOSTS = ['studywithsai.onrender.com', 'localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://studywithsai.onrender.com']
+
 
 
 # Application definition
